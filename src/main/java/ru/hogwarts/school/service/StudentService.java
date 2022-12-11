@@ -23,7 +23,7 @@ public class StudentService {
     }
 
     public Student findStudent(long id) {
-        return studentRepository.getReferenceById(id);
+        return studentRepository.findById(id).get();
     }
 
     public Student editStudent(Student student) {
