@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
@@ -31,6 +32,7 @@ public class StudentController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(student);
+
     }
 
     @PutMapping
@@ -49,11 +51,21 @@ public class StudentController {
     }
 
     @GetMapping("/age")
-    public ResponseEntity<Collection<Student>> findAge(@RequestParam(required = false) Long age) {
-        if (age > 0) {
-            return ResponseEntity.ok(studentService.findAge(age));
+    public ResponseEntity<Collection<Student>> findAge(@RequestParam int min, @RequestParam int max) {
+        Collection<Student> student = studentService.findByAgeBetween(min, max);
+        if (student.isEmpty()) {
+            return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(Collections.emptyList());
+    }
+
+    @GetMapping("/facultyOfStudent")
+    public ResponseEntity<Faculty> findFaculty(@RequestParam Long id) {
+        Faculty faculty = studentService.findFacultyOfStudent(id);
+        if (faculty == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().build();
     }
 }
 
