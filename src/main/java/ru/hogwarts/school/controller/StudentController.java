@@ -65,7 +65,7 @@ public class StudentController {
         if (faculty == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(faculty);
     }
 }
 

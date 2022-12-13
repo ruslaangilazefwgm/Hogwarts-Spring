@@ -1,8 +1,12 @@
 package ru.hogwarts.school.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.Objects;
-
 @Entity
 public class Student {
     @Id
@@ -10,6 +14,7 @@ public class Student {
     private Long id;
     private String name;
     private int age;
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "faculty_id")
     private Faculty faculty;
