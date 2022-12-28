@@ -8,6 +8,8 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repositories.FacultyRepository;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class FacultyService {
@@ -48,4 +50,13 @@ public class FacultyService {
         Faculty faculty = facultyRepository.findById(id).get();
         return faculty.getStudents();
     }
+
+//    public String getMostLongNameOfFaculty() {
+//        Stream<String> name = facultyRepository.findAll()
+//                .stream()
+//                .collect(Collectors.groupingBy(Faculty::getName))
+//                ;
+//
+//        return age;
+//    }
 }
