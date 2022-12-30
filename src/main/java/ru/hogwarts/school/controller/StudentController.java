@@ -94,5 +94,14 @@ public class StudentController {
     public Double getAverageAgeWithStream() {
         return studentService.getAverageAgeWithStream();
     }
+
+    @GetMapping("/all-students-with-threads")
+    public void getAllStudentsinConsoleWithThreads() {
+        studentService.getAllStudentsWithThreads();
+    }
+    @GetMapping("/all-students-with-synhronised-threads")
+    public void getAllStudentsinConsoleWithSynhronisedThreads() {
+        studentService.getAllStudentsWithSynhronisedThreads();
+    }
 }
 

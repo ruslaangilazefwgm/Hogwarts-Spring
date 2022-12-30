@@ -77,7 +77,7 @@ public class StudentService {
         Collection<String> students = studentRepository.getAllStudents();
         Predicate<String> fn;
         fn = (str) -> {
-            if (str.charAt(0)=='Г')
+            if (str.charAt(0) == 'Г')
                 return true;
             return false;
         };
@@ -92,6 +92,38 @@ public class StudentService {
     public Double getAverageAgeWithStream() {
         Double age = studentRepository.findAll().stream().collect(Collectors.averagingInt(Student::getAge));
         return age;
+    }
+
+    public void getAllStudentsWithThreads() {
+        List<Student> list = studentRepository.findAll();
+        System.out.println(list.get(0));
+        System.out.println(list.get(1));
+        new Thread(() -> {
+            System.out.println(list.get(2));
+            System.out.println(list.get(3));
+        }).start();
+        new Thread(() -> {
+            System.out.println(list.get(4));
+            System.out.println(list.get(5));
+        }).start();
+    }
+    public void getAllStudentsWithSynhronisedThreads() {
+        List<Student> list = studentRepository.findAll();
+        System.out.println("original: " + list);
+        synhronisedThread(list.get(0));
+        synhronisedThread(list.get(1));
+        new Thread(() -> {
+            synhronisedThread(list.get(2));
+            synhronisedThread(list.get(3));
+        }).start();
+        new Thread(() -> {
+            synhronisedThread(list.get(4));
+            synhronisedThread(list.get(5));
+        }).start();
+
+    }
+    public synchronized void synhronisedThread(Student student) {
+        System.out.println(student);
     }
 
 }
